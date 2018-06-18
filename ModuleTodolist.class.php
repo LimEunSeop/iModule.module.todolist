@@ -403,21 +403,11 @@ class ModuleTodolist {
 		$html.= $this->getHeader($configs);
 		
 		switch ($context) {
-			case 'helloWorld' :
-				$html.= $this->getHelloWorldContext($configs);
-				break;
-				
-			case 'database' :
-				$html.= $this->getDatabaseContext($configs);
-				break;
-				
+
 			case 'list' :
 				$html.= $this->getListContext($configs);
 				break;
 			
-			case 'completed' :
-				$html.= $this->getCompletedContext($configs);
-				break;
 		}
 		
 		$html.= $this->getFooter($configs);
@@ -469,60 +459,6 @@ class ModuleTodolist {
 		 */
 		$error = $this->getErrorText($code,$value,true);
 		return $this->IM->getError($error);
-	}
-	
-	/**
-	 * 캘린더 컨텍스트를 가져온다.
-	 *
-	 * @param object $configs 사이트맵 관리를 통해 설정된 페이지 컨텍스트 설정
-	 * @return string $html 컨텍스트 HTML
-	 */
-	function getHelloWorldContext($configs=null) {
-		$header = PHP_EOL.'<div id="ModuleTodolistHelloWorldContext">'.PHP_EOL;
-		$footer = PHP_EOL.'</div>'.PHP_EOL;
-		
-		/**
-		 * 템플릿파일을 호출한다.
-		 * @see /modules/todolist/templets/default/helloWorld.php
-		 */
-		return $this->getTemplet($configs)->getContext('helloWorld',get_defined_vars(),$header,$footer);
-	}
-	
-	/**
-	 * 캘린더 컨텍스트를 가져온다.
-	 *
-	 * @param object $configs 사이트맵 관리를 통해 설정된 페이지 컨텍스트 설정
-	 * @return string $html 컨텍스트 HTML
-	 */
-	function getDatabaseContext($configs=null) {
-		/**
-		 * WHERE절로 검색하여 데이터 한개만 가지고 오기
-		 */
-		$data = $this->db()->select($this->table->todolist)->where('idx',1)->getOne();
-		
-		/**
-		 * ORDER BY로 데이터 정렬하여 LIMIT 0, 10 개 데이터를 가져오기
-		 */
-		$datas1 = $this->db()->select($this->table->todolist)->orderBy('idx','asc')->limit(0,10)->get();
-		
-		// /**
-		//  * 데이터 LEFT JOIN 하기
-		//  */
-		// $datas2 = $this->db()->select($this->table->example1.' E1')->join($this->table->example2.' E2','E1.column1=E2.column1 and E1.column2=E2.column2','LEFT')->get();
-		
-		// /**
-		//  * 특정 컬럼만 가져오기
-		//  */
-		// $datas3 = $this->db()->select($this->table->example1.'idx,column1')->get();
-		
-		// $header = PHP_EOL.'<div id="ModuleExampleDatabaseContext">'.PHP_EOL;
-		// $footer = PHP_EOL.'</div>'.PHP_EOL;
-		
-		/**
-		 * 템플릿파일을 호출한다.
-		 * @see /modules/examples1/templets/default/database.php
-		 */
-		return $this->getTemplet($configs)->getContext('database',get_defined_vars(),$header,$footer);
 	}
 
 	/**
