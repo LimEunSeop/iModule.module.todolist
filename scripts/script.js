@@ -12,9 +12,68 @@
  * @version 3.0.0
  * @modified 2018. 4. 30.
  */
-var Example1 = {
-	yourValue:null,
-	yourFunction:function() {
-		
+const Todolist = {
+	list: {
+		init: () => {
+			const $form = $("#ModuleTodolistForm")
+
+			// 아이템 클릭시 완료처리
+			$("li", $form).on("click", e => {
+				// console.log(e.target.closest(".tl-item"))
+				const clickedItem = e.target.closest(".tl-item")
+				
+				const clickedIdx = $(clickedItem).data("index")
+				$.send(ENV.getProcessUrl("todolist", "do"), {idx:clickedIdx}, result => {
+					if (result.success == true) {
+						$(clickedItem).toggleClass("complete")
+					}
+				})
+			})
+
+			// add버튼 클릭 or input 에서 엔터 누를때 아이템 추가
+			$form.on("submit", () => {
+				$input = $("input[name=item]")
+				if ($input.val().trim() !== "") {
+					$form.send(ENV.getProcessUrl("todolist", "add"))
+				} else {
+					return false;
+				}
+			})
+
+			$("button", $form).on("click", e => {
+				const buttonName = e.target.name
+
+				switch(buttonName) {
+
+					case "doAll":
+						$.send(ENV.getProcessUrl("todolist", "doAll"), result => {
+							if (result.success == true) {
+								$("li", $form).each((index, item) => {
+									$(item).addClass("complete")
+								})
+							}
+						})
+						break
+
+					case "undoAll":
+						$.send(ENV.getProcessUrl("todolist", "undoAll"), result => {
+							if (result.success == true) {
+								$("li", $form).each((index, item) => {
+									$(item).removeClass("complete")
+								})
+							}
+						})
+						break
+
+					case "clearDone":
+						Todolist.list.clearDone()
+						break
+
+					case "clearAll":
+						Todolist.list.clearAll()
+						break
+				}
+			})
+		}
 	}
-};
+}

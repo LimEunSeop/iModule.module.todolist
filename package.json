@@ -1,26 +1,27 @@
 {
-	"id":"com.moimz.imodule.module.example1",
+	"id":"com.moimz.imodule.module.todolist",
 	"icon":"mi mi-imodule",
 	"title":{
-		"ko":"아이모듈 모듈 예제 #1"
+		"ko":"To do 리스트"
 	},
-	"version":"3.0.0",
+	"version":"0.0.4",
 	"description":{
-		"ko":"컨텍스트와 모듈 데이터베이스 테이블을 가지는 일반적인 모듈예제"
+		"ko":"할일을 관리할 수 있습니다."
 	},
 	"author":{
-		"name":"Arzz",
-		"email":"arzz@arzz.com"
+		"name":"Eunseop",
+		"email":"dmstjq12@naver.com"
 	},
-	"homepage":"http://www.imodule.kr",
+	"homepage":"http://github.com/limeunseop",
 	"dependencies":{
 		"core":"3.0.0",
-		"attachment":"3.0.0"
+		"push":"3.0.0"
 	},
 	"language":"ko",
 	"admin":false,
 	"context":true,
 	"global":false,
+	"article":false,
 	"configs":{
 		"templet":{
 			"type":"templet",
@@ -28,75 +29,44 @@
 		}
 	},
 	"databases":{
-		"example1_table":{
+		"todolist":{
 			"columns":{
 				"idx":{
 					"type":"int",
 					"length":11,
 					"comment":"자동증가고유값"
 				},
-				"column1":{
+				"taskname":{
 					"type":"varchar",
 					"length":100,
-					"comment":"VARCHAR 타입",
-					"is_null":true
+					"comment":"할 일",
+					"is_null":false
 				},
-				"column2":{
+				"complete":{
 					"type":"enum",
-					"length":"'YES','NO'",
-					"default":"YES",
-					"comment":"ENUM 타입"
+					"length":"'YES', ''",
+					"default":"",
+					"comment":"완료 여부"
 				},
-				"column3":{
-					"type":"text",
-					"is_null":false,
-					"comment":"TEXT 타입"
+				"reg_date":{
+					"type":"int",
+					"length":11,
+					"comment":"작성일"
 				},
-				"column4":{
-					"type":"date",
-					"default":"0000-00-00",
-					"comment":"날짜(YYYY-MM-DD) 타입"
+				"comp_date":{
+					"type":"int",
+					"length":11,
+					"comment":"완료일"
 				}
 			},
 			"indexes":{
-				"idx":"primary_key",
-				"column1,column2":"index",
-				"column4":"unique"
+				"idx":"primary_key"
 			},
 			"auto_increment":"idx",
 			"datas":[
-				{"idx":1,"column1":"기본데이터 1","column2":"YES","column3":"기본데이터 3","column4":"2018-04-30"},
-				{"idx":2,"column1":"기본데이터 2","column2":"NO","column3":"기본데이터 4","column4":"2018-05-01"}
+				{"idx":1,"taskname":"아이모듈모듈 하나 만들어보기","complete":"NO","reg_date":1528681534},
+				{"idx":2,"taskname":"Angular2 앱 하나 만들기","complete":"NO","reg_date":1528684592}
 			]
-		},
-		"example2_table":{
-			"columns":{
-				"column1":{
-					"type":"varchar",
-					"length":100,
-					"comment":"VARCHAR 타입",
-					"is_null":true
-				},
-				"column2":{
-					"type":"enum",
-					"length":"'YES','NO'",
-					"default":"YES",
-					"comment":"ENUM 타입"
-				},
-				"column3":{
-					"type":"text",
-					"is_null":false,
-					"comment":"TEXT 타입"
-				},
-				"column4":{
-					"type":"date",
-					"default":"0000-00-00",
-					"comment":"날짜(YYYY-MM-DD) 타입"
-				}
-			},
-			"indexes":{
-				"column1,column2":"primary_key"
-			}
 		}
 	}
 }

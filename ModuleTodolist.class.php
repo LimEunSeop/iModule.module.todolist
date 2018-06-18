@@ -1,16 +1,16 @@
 <?php
 /**
- * 이 파일은 iModule 모듈예제 #1 의 일부입니다. (https://www.imodule.kr)
+ * 이 파일은 Todolist 모듈의 일부입니다. (https://github.com/limeunseop/todolistmodule)
  *
- * 컨텍스트와 모듈 데이터베이스 테이블을 가지는 일반적인 모듈예제
+ * 할 일을 관리할 수 있습니다.
  * 
- * @file /modules/examples1/ModuleExample1.class.php
- * @author Arzz (arzz@arzz.com)
+ * @file /modules/todolist/ModuleTodolist.class.php
+ * @author Eunseop (dmstjq12@naver.com)
  * @license MIT License
- * @version 3.0.0
- * @modified 2018. 4. 30.
+ * @version 0.0.1
+ * @modified 2018. 6. 12.
  */
-class ModuleExample1 {
+class ModuleTodolist {
 	/**
 	 * iModule 및 Module 코어클래스
 	 */
@@ -55,8 +55,7 @@ class ModuleExample1 {
 		 * @see 모듈폴더의 package.json 의 databases 참고
 		 */
 		$this->table = new stdClass();
-		$this->table->example1 = 'example1_table';
-		$this->table->example2 = 'example2_table';
+		$this->table->todolist = 'todolist';
 	}
 	
 	/**
@@ -242,7 +241,7 @@ class ModuleExample1 {
 		$templet->title = $this->getText('admin/configs/form/templet');
 		$templet->name = 'templet';
 		$templet->type = 'templet';
-		$templet->target = 'example1';
+		$templet->target = 'todolist';
 		$templet->use_default = true;
 		$templet->value = $values != null && isset($values->templet) == true ? $values->templet : '#';
 		$configs[] = $templet;
@@ -397,8 +396,10 @@ class ModuleExample1 {
 		 */
 		$this->IM->addHeadResource('style',$this->getModule()->getDir().'/styles/style.css');
 		$this->IM->addHeadResource('script',$this->getModule()->getDir().'/scripts/script.js');
+
+		$view = $this->getView() == null ? 'list' : $this->getView();
 		
-		$html = PHP_EOL.'<!-- EXAMPLE #1 MODULE -->'.PHP_EOL.'<div data-role="context" data-type="module" data-module="example1" data-context="'.$context.'">'.PHP_EOL;
+		$html = PHP_EOL.'<!-- TODOLIST MODULE -->'.PHP_EOL.'<div data-role="context" data-type="module" data-module="todolist" data-context="'.$context.'">'.PHP_EOL;
 		$html.= $this->getHeader($configs);
 		
 		switch ($context) {
@@ -409,6 +410,14 @@ class ModuleExample1 {
 			case 'database' :
 				$html.= $this->getDatabaseContext($configs);
 				break;
+				
+			case 'list' :
+				$html.= $this->getListContext($configs);
+				break;
+			
+			case 'completed' :
+				$html.= $this->getCompletedContext($configs);
+				break;
 		}
 		
 		$html.= $this->getFooter($configs);
@@ -416,7 +425,7 @@ class ModuleExample1 {
 		/**
 		 * 컨텍스트 컨테이너를 설정한다.
 		 */
-		$html.= PHP_EOL.'</div>'.PHP_EOL.'<!--// EXAMPLE #1 MODULE -->'.PHP_EOL;
+		$html.= PHP_EOL.'</div>'.PHP_EOL.'<!--// TODOLIST MODULE -->'.PHP_EOL;
 		
 		return $html;
 	}
@@ -469,12 +478,12 @@ class ModuleExample1 {
 	 * @return string $html 컨텍스트 HTML
 	 */
 	function getHelloWorldContext($configs=null) {
-		$header = PHP_EOL.'<div id="ModuleExampleHelloWorldContext">'.PHP_EOL;
+		$header = PHP_EOL.'<div id="ModuleTodolistHelloWorldContext">'.PHP_EOL;
 		$footer = PHP_EOL.'</div>'.PHP_EOL;
 		
 		/**
 		 * 템플릿파일을 호출한다.
-		 * @see /modules/examples1/templets/default/helloWorld.php
+		 * @see /modules/todolist/templets/default/helloWorld.php
 		 */
 		return $this->getTemplet($configs)->getContext('helloWorld',get_defined_vars(),$header,$footer);
 	}
@@ -489,25 +498,25 @@ class ModuleExample1 {
 		/**
 		 * WHERE절로 검색하여 데이터 한개만 가지고 오기
 		 */
-		$data = $this->db()->select($this->table->example1)->where('idx',1)->getOne();
+		$data = $this->db()->select($this->table->todolist)->where('idx',1)->getOne();
 		
 		/**
 		 * ORDER BY로 데이터 정렬하여 LIMIT 0, 10 개 데이터를 가져오기
 		 */
-		$datas1 = $this->db()->select($this->table->example1)->orderBy('idx','asc')->limit(0,10)->get();
+		$datas1 = $this->db()->select($this->table->todolist)->orderBy('idx','asc')->limit(0,10)->get();
 		
-		/**
-		 * 데이터 LEFT JOIN 하기
-		 */
-		$datas2 = $this->db()->select($this->table->example1.' E1')->join($this->table->example2.' E2','E1.column1=E2.column1 and E1.column2=E2.column2','LEFT')->get();
+		// /**
+		//  * 데이터 LEFT JOIN 하기
+		//  */
+		// $datas2 = $this->db()->select($this->table->example1.' E1')->join($this->table->example2.' E2','E1.column1=E2.column1 and E1.column2=E2.column2','LEFT')->get();
 		
-		/**
-		 * 특정 컬럼만 가져오기
-		 */
-		$datas3 = $this->db()->select($this->table->example1.'idx,column1')->get();
+		// /**
+		//  * 특정 컬럼만 가져오기
+		//  */
+		// $datas3 = $this->db()->select($this->table->example1.'idx,column1')->get();
 		
-		$header = PHP_EOL.'<div id="ModuleExampleDatabaseContext">'.PHP_EOL;
-		$footer = PHP_EOL.'</div>'.PHP_EOL;
+		// $header = PHP_EOL.'<div id="ModuleExampleDatabaseContext">'.PHP_EOL;
+		// $footer = PHP_EOL.'</div>'.PHP_EOL;
 		
 		/**
 		 * 템플릿파일을 호출한다.
@@ -515,6 +524,37 @@ class ModuleExample1 {
 		 */
 		return $this->getTemplet($configs)->getContext('database',get_defined_vars(),$header,$footer);
 	}
+
+	/**
+	 * list 컨텍스트를 가져온다
+	 * 
+	 * @param object $configs 사이트맵 관리를 통해 설정된 페이지 컨텍스트 설정
+	 * @return string $html 컨텍스트 HTML
+	 */
+	function getListContext($configs=null) {
+
+		$tasks = $this->db()->select($this->table->todolist)->get();
+
+		$header = PHP_EOL.'<form id="ModuleTodolistForm">'.PHP_EOL;
+		$footer = PHP_EOL.'</form>'.PHP_EOL.'<script>Todolist.list.init();</script>'.PHP_EOL;
+
+		return $this->getTemplet($configs)->getContext('list', get_defined_vars(), $header, $footer);
+	}
+
+	/**
+	 * completed 컨텍스트를 가져온다
+	 * 
+	 * @param object $configs 사이트맵 관리를 통해 설정된 페이지 컨텍스트 설정
+	 * @return string $html 컨텍스트 HTML
+	 */
+	function getCompletedContext($configs=null) {
+
+		$header = PHP_EOL.'<form id="ModuleTodolistForm">'.PHP_EOL;
+		$footer = PHP_EOL.'</form>'.PHP_EOL.'<script>Board.list.init("ModuleTodolistForm");</script>'.PHP_EOL;
+
+		return $this->getTemplet($configs)->getContext('completed', get_defined_vars(), $header, $footer);
+	}
+
 	
 	/**
 	 * 현재 모듈에서 처리해야하는 요청이 들어왔을 경우 처리하여 결과를 반환한다.

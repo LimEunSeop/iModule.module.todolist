@@ -21,9 +21,9 @@ var config = new Ext.form.Panel({
 	fieldDefaults:{labelAlign:"right",labelWidth:80,anchor:"100%",allowBlank:true},
 	items:[
 		new Ext.form.FieldSet({
-			title:Example1.getText("admin/configs/form/default_setting"),
+			title:Todolist.getText("admin/configs/form/default_setting"),
 			items:[
-				Admin.templetField(Example1.getText("admin/configs/form/templet"),"templet","example1",false)
+				Admin.templetField(Todolist.getText("admin/configs/form/templet"),"templet","todolist",false)
 			]
 		})
 	]

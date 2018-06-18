@@ -1,16 +1,56 @@
 /**
- * 이 파일은 iModule 모듈예제 #1 의 일부입니다. (https://www.imodule.kr)
+ * 이 파일은 iModule 게시판모듈의 일부입니다. (https://www.imodule.kr)
  *
- * 모듈예제 #1 기본템플릿 - 템플릿에서 사용할 스타일시트
- * 이 자바스크립트 파일은 템플릿 폴더의 package.json 에 정의된 styles 에 의해 자동으로 호출된다.
- * 광역으로 적용되는 것을 막기 위해 가급적 모듈 컨테이너와 해당 템플릿에서만 적용되는 스타일을 지정한다.
- * @see /modules/examples1/templets/default/package.json
+ * 게시판 기본템플릿 - 스타일시트
  * 
- * @file /modules/examples1/templets/default/styles/style.css
+ * @file /modules/todolist/templets/default/styles/style.css
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
  * @version 3.0.0
- * @modified 2018. 4. 30.
+ * @modified 2018. 3. 10.
  */
-div[data-module=example1][data-templet=default] b {color:red;}
-div[data-module=example1][data-templet=default] pre {font-size:14px;}
+
+div[data-module=todolist] {
+    margin-top:30px;
+}
+
+div[data-module=todolist] .tl-list {
+    margin: 15px;
+    padding: 30px;
+    list-style: none;
+    font-size: 1.5em;
+    background: #fff;
+    border: 1px solid #eee;
+    box-shadow: 1px 0 5px 0 rgba(100,100,100,0.5);
+}
+
+div[data-module=todolist] .tl-item {
+    border-bottom: 1px solid #eee;
+    padding:15px 0;
+}
+
+div[data-module=todolist] .tl-item.complete {
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+div[data-module=todolist] .tl-list .tl-text {
+    font-weight: 600;
+    color: #333;
+}
+
+div[data-module=todolist] .tl-list .tl-date {
+    font-size: 0.5em;
+    color: #888;
+}
+
+div[data-module=todolist] input {
+    margin: 10px;
+    font-size:2em
+}
+
+div[data-module=todolist] button {
+	margin: 10px;
+	font-size: 1em;
+	padding: 10px;
+}

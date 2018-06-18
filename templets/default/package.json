@@ -1,13 +1,13 @@
 {
 	"title":{
-		"ko":"모듈예제 #1 기본 템플릿"
+		"ko":"Todolist 기본 템플릿"
 	},
-	"version":"1.0.0",
+	"version":"0.0.2",
 	"author":{
-		"name":"Arzz",
-		"email":"arzz@arzz.com"
+		"name":"Eunseop",
+		"email":"dmstjq12@naver.com"
 	},
-	"homepage":"https://www.imodule.kr",
+	"homepage":"https://limeunseop.github.io",
 	"language":"ko",
 	"scripts":[
 		"/scripts/script.js"
