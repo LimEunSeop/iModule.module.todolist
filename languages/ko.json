@@ -1,7 +1,5 @@
 {
 	"context":{
-		"helloWorld":"Hello World! 컨텍스트",
-		"database":"DB데이터 가져오기 컨텍스트",
 		"list":"todolist 컨텍스트"
 	},
 	"admin":{
