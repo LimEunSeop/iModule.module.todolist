@@ -468,8 +468,16 @@ class ModuleTodolist {
 	 * @return string $html 컨텍스트 HTML
 	 */
 	function getListContext($configs=null) {
+		$memberModule = $this->IM->getModule('member');
+		$logged = $memberModule->isLogged();
 
-		$tasks = $this->db()->select($this->table->todolist)->get();
+		if (!$logged) {
+			return $this->getError('REQUIRED_LOGIN');
+			// return "<script>Member.loginModal();</script>"; 이것은 스크립트에서 필요할때 부르는 걸로!!!
+		}
+
+		$mem_idx = $this->IM->getModule('member')->getMember()->idx; // 멤버 idx 값 불러오기
+		$tasks = $this->db()->select($this->table->todolist)->where('mem_idx', $mem_idx)->get();
 
 		$header = PHP_EOL.'<form id="ModuleTodolistForm">'.PHP_EOL;
 		$footer = PHP_EOL.'</form>'.PHP_EOL.'<script>Todolist.list.init();</script>'.PHP_EOL;

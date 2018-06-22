@@ -26,9 +26,11 @@ if (defined('__IM__') == false) exit;
     <?php } ?>
 </ul>
 
-<input type="text" name="item" placeholder="Enter Item!">
-<button type="submit" name="add"> Add </button>
-<button type="button" name="doAll"> Do All </button>
-<button type="button" name="undoAll"> Undo All </button>
-<button type="button" name="clearDone"> Clear Done </button>
-<button type="button" name="clearAll"> Clear All </burron>
+<div class="tl-control">
+    <input type="text" name="item" placeholder="Enter Item!">
+    <button type="submit" name="add"> Add </button>
+    <button type="button" name="doAll"> Do All </button>
+    <button type="button" name="undoAll"> Undo All </button>
+    <button type="button" name="clearDone"> Clear Done </button>
+    <button type="button" name="clearAll"> Clear All </burron>
+</div>

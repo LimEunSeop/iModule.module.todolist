@@ -62,12 +62,12 @@ div[data-module=todolist] .tl-list .tl-compdate {
     color: blue;
 }
 
-div[data-module=todolist] input {
+div[data-module=todolist] .tl-control input {
     margin: 10px;
     font-size:2em
 }
 
-div[data-module=todolist] button {
+div[data-module=todolist] .tl-control button {
 	margin: 10px;
 	font-size: 1em;
 	padding: 10px;

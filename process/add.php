@@ -6,6 +6,7 @@ if ($taskname == "") {
     return;
 }
 
+$insert['mem_idx'] = $this->IM->getModule('member')->getMember()->idx;
 $insert['taskname'] = $taskname;
 $insert['reg_date'] = time();
 
