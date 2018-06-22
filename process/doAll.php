@@ -6,13 +6,7 @@ if (defined('__IM__') == false) exit;
 $comp_date = time();
 $success = $this->db()->update($this->table->todolist, array('complete'=>'YES', 'comp_date'=>$comp_date))->execute();
 
-if ($success == true) {
-    $results->success = true;
-    $results->comp_date = GetTime("Y-m-d H:i:s", $comp_date); // 포메팅을 PHP 차원에서 해주고 반환한다.
-} else {
-    $results->success = false;
-    $results->message = $this->getErrorText('doAll : DATABASE_SET_ERROR');
-    return;
-}
+$results->success = true;
+$results->comp_date = GetTime("Y-m-d H:i:s", $comp_date); // 포메팅을 PHP 차원에서 해주고 반환한다.
 
 ?>

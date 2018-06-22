@@ -25,10 +25,13 @@ const Todolist = {
 				const clickedItem = e.target.closest(".tl-item")
 				
 				const clickedIdx = $(clickedItem).data("index")
-				$.send(ENV.getProcessUrl("todolist", "do"), {idx:clickedIdx}, result => {
+				const isCompleted = $(clickedItem).hasClass("complete") ? "YES" : "NO"
+				$.send(ENV.getProcessUrl("todolist", "do"), {idx:clickedIdx, isCompleted:isCompleted}, result => {
 					if (result.success == true) {
 						$("span.value", $(clickedItem)).html(result.comp_date);
 						$(clickedItem).toggleClass("complete")
+					} else {
+						iModule.modal.alert(iModule.getText("text/confirm"),result.message);
 					}
 				})
 			})
