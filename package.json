@@ -68,11 +68,7 @@
 				"idx":"primary_key",
 				"mem_idx":"index"
 			},
-			"auto_increment":"idx",
-			"datas":[
-				{"idx":1,"taskname":"아이모듈모듈 하나 만들어보기","complete":"NO","reg_date":1528681534},
-				{"idx":2,"taskname":"Angular2 앱 하나 만들기","complete":"NO","reg_date":1528684592}
-			]
+			"auto_increment":"idx"
 		}
 	}
 }
