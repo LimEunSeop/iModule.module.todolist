@@ -15,7 +15,7 @@
 	"homepage":"http://github.com/limeunseop",
 	"dependencies":{
 		"core":"3.0.0",
-		"push":"3.0.0"
+		"member":"3.0.0"
 	},
 	"language":"ko",
 	"admin":false,
