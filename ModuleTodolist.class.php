@@ -484,21 +484,6 @@ class ModuleTodolist {
 
 		return $this->getTemplet($configs)->getContext('list', get_defined_vars(), $header, $footer);
 	}
-
-	/**
-	 * completed 컨텍스트를 가져온다
-	 * 
-	 * @param object $configs 사이트맵 관리를 통해 설정된 페이지 컨텍스트 설정
-	 * @return string $html 컨텍스트 HTML
-	 */
-	function getCompletedContext($configs=null) {
-
-		$header = PHP_EOL.'<form id="ModuleTodolistForm">'.PHP_EOL;
-		$footer = PHP_EOL.'</form>'.PHP_EOL.'<script>Board.list.init("ModuleTodolistForm");</script>'.PHP_EOL;
-
-		return $this->getTemplet($configs)->getContext('completed', get_defined_vars(), $header, $footer);
-	}
-
 	
 	/**
 	 * 현재 모듈에서 처리해야하는 요청이 들어왔을 경우 처리하여 결과를 반환한다.
