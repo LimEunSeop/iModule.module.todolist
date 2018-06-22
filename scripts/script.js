@@ -15,6 +15,8 @@
 const Todolist = {
 	list: {
 		init: () => {
+			$("input[name=item]").focus()
+
 			const $form = $("#ModuleTodolistForm")
 
 			// 아이템 클릭시 완료처리
@@ -25,6 +27,7 @@ const Todolist = {
 				const clickedIdx = $(clickedItem).data("index")
 				$.send(ENV.getProcessUrl("todolist", "do"), {idx:clickedIdx}, result => {
 					if (result.success == true) {
+						$("span.value", $(clickedItem)).html(result.comp_date);
 						$(clickedItem).toggleClass("complete")
 					}
 				})
@@ -32,7 +35,7 @@ const Todolist = {
 
 			// add버튼 클릭 or input 에서 엔터 누를때 아이템 추가
 			$form.on("submit", () => {
-				$input = $("input[name=item]")
+				const $input = $("input[name=item]")
 				if ($input.val().trim() !== "") {
 					$form.send(ENV.getProcessUrl("todolist", "add"))
 				} else {
@@ -49,6 +52,7 @@ const Todolist = {
 						$.send(ENV.getProcessUrl("todolist", "doAll"), result => {
 							if (result.success == true) {
 								$("li", $form).each((index, item) => {
+									$("span.value", item).html(result.comp_date);
 									$(item).addClass("complete")
 								})
 							}
@@ -66,11 +70,19 @@ const Todolist = {
 						break
 
 					case "clearDone":
-						Todolist.list.clearDone()
+						$.send(ENV.getProcessUrl("todolist", "clearDone"), result => {
+							if (result.success == true) {
+								$("li.complete", $form).remove()
+							}
+						})
 						break
 
 					case "clearAll":
-						Todolist.list.clearAll()
+						$.send(ENV.getProcessUrl("todolist", "clearAll"), result => {
+							if (result.success == true) {
+								$("li", $form).remove()
+							}
+						})
 						break
 				}
 			})

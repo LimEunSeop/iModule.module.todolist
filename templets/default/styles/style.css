@@ -29,9 +29,22 @@ div[data-module=todolist] .tl-item {
     padding:15px 0;
 }
 
-div[data-module=todolist] .tl-item.complete {
+div[data-module=todolist] .tl-item.complete .tl-text {
     text-decoration: line-through;
     opacity: 0.4;
+}
+
+div[data-module=todolist] .tl-item.complete .tl-regdate {
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+div[data-module=todolist] .tl-item.complete .tl-compdate {
+    visibility: visible;
+}
+
+div[data-module=todolist] .tl-item .tl-compdate {
+    visibility: hidden;
 }
 
 div[data-module=todolist] .tl-list .tl-text {
@@ -39,9 +52,14 @@ div[data-module=todolist] .tl-list .tl-text {
     color: #333;
 }
 
-div[data-module=todolist] .tl-list .tl-date {
+div[data-module=todolist] .tl-list .tl-regdate {
     font-size: 0.5em;
     color: #888;
+}
+
+div[data-module=todolist] .tl-list .tl-compdate {
+    font-size: 0.5em;
+    color: blue;
 }
 
 div[data-module=todolist] input {

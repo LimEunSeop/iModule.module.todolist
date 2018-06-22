@@ -17,7 +17,11 @@ if (defined('__IM__') == false) exit;
     <?php foreach ($tasks as $data) { ?>
     <li class="tl-item <?php echo $data->complete === 'YES' ? 'complete' : '';?>" data-index="<?php echo $data->idx; ?>">
         <span class="tl-text"> <?php echo $data->taskname ?> </span>
-        <span class="tl-date"> <?php echo GetTime("Y-m-d H:i:s",$data->reg_date); ?> </span>
+        <span class="tl-regdate"> <?php echo GetTime("Y-m-d H:i:s", $data->reg_date); ?> </span>
+        <span class="tl-compdate"> &nbsp;&nbsp;
+            <span class="image"> <img src="<?php echo $IM->getHost().$Templet->getDir().'/images/checkmark.png'; ?>" /> </span>
+            <span class="value"> <?php echo GetTime("Y-m-d H:i:s", $data->comp_date); ?> </span>
+        </span>
     </li>
     <?php } ?>
 </ul>
