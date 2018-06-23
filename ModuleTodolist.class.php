@@ -5,10 +5,10 @@
  * 할 일을 관리할 수 있습니다.
  * 
  * @file /modules/todolist/ModuleTodolist.class.php
- * @author Eunseop (dmstjq12@naver.com)
+ * @author Eunseop Lim (dmstjq12@naver.com)
  * @license MIT License
- * @version 0.0.1
- * @modified 2018. 6. 12.
+ * @version 0.0.5
+ * @modified 2018. 6. 22.
  */
 class ModuleTodolist {
 	/**

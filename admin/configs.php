@@ -1,13 +1,13 @@
 <?php
 /**
- * 이 파일은 iModule 모듈예제 #1 의 일부입니다. (https://www.imodule.kr)
+ * 이 파일은 iModule todolist 모듈의 일부입니다. (https://www.imodule.kr)
  *
- * 캘린더모듈 설정패널
+ * todolist 모듈 설정패널
  * 
- * @file /modules/example1/admin/configs.php
- * @author Arzz (arzz@arzz.com)
+ * @file /modules/todolist/admin/configs.php
+ * @author Eunseop Lim (dmstjq12@naver.com)
  * @license GPLv3
- * @version 3.0.0
+ * @version 0.0.5
  * @modified 2018. 4. 29.
  */
 if (defined('__IM__') == false) exit;
