@@ -21,6 +21,12 @@ var Todolist = {
 
 			// 아이템 클릭시 완료처리
 			$("li", $form).on("click", function(e) {
+				
+				if (Todolist.list.isLogged() === false) {
+					Member.loginModal();
+					exit;
+				}
+
 				// console.log(e.target.closest(".tl-item"));
 				var clickedItem = e.target.closest(".tl-item");
 				
@@ -38,6 +44,12 @@ var Todolist = {
 
 			// add버튼 클릭 or input 에서 엔터 누를때 아이템 추가
 			$form.on("submit", function() {
+
+				if (Todolist.list.isLogged() === false) {
+					Member.loginModal();
+					exit;
+				}
+
 				var $input = $("input[name=item]");
 				if ($input.val().trim() !== "") {
 					$form.send(ENV.getProcessUrl("todolist", "add"));
@@ -47,6 +59,12 @@ var Todolist = {
 			});
 
 			$("button", $form).on("click", function(e) {
+
+				if (Todolist.list.isLogged() === false) {
+					Member.loginModal();
+					exit;
+				}
+				
 				var buttonName = e.target.name;
 
 				switch(buttonName) {
@@ -89,6 +107,23 @@ var Todolist = {
 						break;
 				}
 			});
+		},
+
+		isLogged: function() {
+
+			var logged = null;
+
+			$.ajax({
+				type: "GET",
+				url: ENV.getApiUrl("member", "me"),
+				dataType:"json",
+				async: false,
+				success: function(result) {
+					logged = result.success; // success 가 true이면 로그인돼있는것, false면 로그인 돼있지 않은것.
+				}
+			});
+
+			return logged;
 		}
 	}
 };
