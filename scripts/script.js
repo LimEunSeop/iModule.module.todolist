@@ -19,94 +19,108 @@ var Todolist = {
 
 			var $form = $("#ModuleTodolistForm");
 
-			// 아이템 클릭시 완료처리
-			$("li", $form).on("click", function(e) {
-				
-				if (Todolist.list.isLogged() === false) {
-					Member.loginModal();
-					exit;
-				}
+			/**
+			 * 핸들러 등록 부분
+			 */
 
-				// console.log(e.target.closest(".tl-item"));
-				var clickedItem = e.target.closest(".tl-item");
-				
-				var clickedIdx = $(clickedItem).data("index");
-				var isCompleted = $(clickedItem).hasClass("complete") ? "YES" : "NO";
-				$.send(ENV.getProcessUrl("todolist", "do"), {idx:clickedIdx, isCompleted:isCompleted}, function(result) {
-					if (result.success == true) {
-						$("span.value", $(clickedItem)).html(result.comp_date);
-						$(clickedItem).toggleClass("complete");
-					} else {
-						iModule.modal.alert(iModule.getText("text/confirm"),result.message);
-					}
-				});
-			});
+			// 아이템 클릭시 완료처리
+			$("li", $form).on("click", Todolist.list.itemClickHandler);
 
 			// add버튼 클릭 or input 에서 엔터 누를때 아이템 추가
-			$form.on("submit", function() {
+			$form.on("submit", Todolist.list.formSubmitHandler);
 
-				if (Todolist.list.isLogged() === false) {
-					Member.loginModal();
-					exit;
-				}
+			// Control 버튼 (Add, Do All, Undo All, Clear Done, Clear All) 처리
+			$("button", $form).on("click", Todolist.list.buttonClickHandler);
+		},
 
-				var $input = $("input[name=item]");
-				if ($input.val().trim() !== "") {
-					$form.send(ENV.getProcessUrl("todolist", "add"));
+		itemClickHandler: function(e) {
+			
+			if (Todolist.list.isLogged() === false) {
+				Member.loginModal();
+				exit;
+			}
+
+			// console.log(e.target.closest(".tl-item"));
+			var clickedItem = e.target.closest(".tl-item");
+			
+			var clickedIdx = $(clickedItem).data("index");
+			var isCompleted = $(clickedItem).hasClass("complete") ? "YES" : "NO";
+			$.send(ENV.getProcessUrl("todolist", "do"), {idx:clickedIdx, isCompleted:isCompleted}, function(result) {
+				if (result.success == true) {
+					$("span.value", $(clickedItem)).html(result.comp_date);
+					$(clickedItem).toggleClass("complete");
 				} else {
-					return false;
+					iModule.modal.alert(iModule.getText("text/confirm"),result.message);
 				}
 			});
+		},
 
-			$("button", $form).on("click", function(e) {
+		formSubmitHandler: function() {
 
-				if (Todolist.list.isLogged() === false) {
-					Member.loginModal();
-					exit;
-				}
-				
-				var buttonName = e.target.name;
+			if (Todolist.list.isLogged() === false) {
+				Member.loginModal();
+				exit;
+			}
 
-				switch(buttonName) {
+			var $form = $("#ModuleTodolistForm");
 
-					case "doAll":
-						$.send(ENV.getProcessUrl("todolist", "doAll"), function(result) {
-							if (result.success == true) {
-								$("li", $form).each(function(index, item) {
-									$("span.value", item).html(result.comp_date);
-									$(item).addClass("complete");
-								});
-							}
-						});
-						break;
+			var $input = $("input[name=item]");
+			if ($input.val().trim() !== "") {
+				$form.send(ENV.getProcessUrl("todolist", "add"));
+			} else {
+				return false;
+			}
+		},
 
-					case "undoAll":
-						$.send(ENV.getProcessUrl("todolist", "undoAll"), function(result) {
-							if (result.success == true) {
-								$("li", $form).each(function(index, item) {
-									$(item).removeClass("complete");
-								});
-							}
-						});
-						break;
+		buttonClickHandler: function(e) {
 
-					case "clearDone":
-						$.send(ENV.getProcessUrl("todolist", "clearDone"), function(result) {
-							if (result.success == true) {
-								$("li.complete", $form).remove();
-							}
-						});
-						break;
+			if (Todolist.list.isLogged() === false) {
+				Member.loginModal();
+				exit;
+			}
 
-					case "clearAll":
-						$.send(ENV.getProcessUrl("todolist", "clearAll"), function(result) {
-							if (result.success == true) {
-								$("li", $form).remove();
-							}
-						});
-						break;
-				}
-			});
+			var $form = $("#ModuleTodolistForm");
+			var buttonName = e.target.name;
+
+			switch(buttonName) {
+
+				case "doAll":
+					$.send(ENV.getProcessUrl("todolist", "doAll"), function(result) {
+						if (result.success == true) {
+							$("li", $form).each(function(index, item) {
+								$("span.value", item).html(result.comp_date);
+								$(item).addClass("complete");
+							});
+						}
+					});
+					break;
+
+				case "undoAll":
+					$.send(ENV.getProcessUrl("todolist", "undoAll"), function(result) {
+						if (result.success == true) {
+							$("li", $form).each(function(index, item) {
+								$(item).removeClass("complete");
+							});
+						}
+					});
+					break;
+
+				case "clearDone":
+					$.send(ENV.getProcessUrl("todolist", "clearDone"), function(result) {
+						if (result.success == true) {
+							$("li.complete", $form).remove();
+						}
+					});
+					break;
+
+				case "clearAll":
+					$.send(ENV.getProcessUrl("todolist", "clearAll"), function(result) {
+						if (result.success == true) {
+							$("li", $form).remove();
+						}
+					});
+					break;
+			}
 		},
 
 		isLogged: function() {
