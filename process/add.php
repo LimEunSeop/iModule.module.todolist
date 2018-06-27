@@ -31,7 +31,7 @@ $insert['mem_idx'] = $memberModule->getMember()->idx;
 $insert['taskname'] = $taskname;
 $insert['reg_date'] = time();
 
-$idx = $this->db()->insert($this->table->todolist, $insert)->execute();
+$this->db()->insert($this->table->todolist, $insert)->execute();
 
 $results->success = true;
 ?>
