@@ -23,7 +23,7 @@ if (!$logged) {
 }
 
 $comp_date = time();
-$success = $this->db()->update($this->table->todolist, array('complete'=>'YES', 'comp_date'=>$comp_date))->execute();
+$this->db()->update($this->table->todolist, array('complete'=>'YES', 'comp_date'=>$comp_date))->execute();
 
 $results->success = true;
 $results->comp_date = GetTime("Y-m-d H:i:s", $comp_date); // 포메팅을 PHP 차원에서 해주고 반환한다.
