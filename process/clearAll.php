@@ -13,6 +13,15 @@
 
 if (defined('__IM__') == false) exit;
 
+$memberModule = $this->IM->getModule('member');
+$logged = $memberModule->isLogged();
+
+if (!$logged) {
+    $results->success = false;
+    $results->message = 'NOT LOGGED';
+    return;
+}
+
 $success = $this->db()->delete($this->table->todolist)->execute();
 
 $results->success = true;

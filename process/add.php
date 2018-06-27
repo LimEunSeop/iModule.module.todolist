@@ -13,12 +13,21 @@
 
 if (defined('__IM__') == false) exit;
 
+$memberModule = $this->IM->getModule('member');
+$logged = $memberModule->isLogged();
+
+if (!$logged) {
+    $results->success = false;
+    $results->message = 'NOT LOGGED';
+    return;
+}
+
 $taskname = Request('item');
 if ($taskname == "") {
     return;
 }
 
-$insert['mem_idx'] = $this->IM->getModule('member')->getMember()->idx;
+$insert['mem_idx'] = $memberModule->getMember()->idx;
 $insert['taskname'] = $taskname;
 $insert['reg_date'] = time();
 

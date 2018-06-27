@@ -13,6 +13,13 @@
  * @modified 2018. 6. 22.
  */
 var Todolist = {
+	getUrl:function(view) {
+		var url = $("div[data-module=todolist]").attr("data-base-url") ? $("div[data-module=todolist]").attr("data-base-url") : ENV.getUrl(null,null,false);
+		if (!view || view == false) return url;
+		url+= "/"+view;
+		return url;
+	},
+
 	list: {
 		init: function() {
 			$("input[name=item]").focus();
@@ -34,11 +41,6 @@ var Todolist = {
 		},
 
 		itemClickHandler: function(e) {
-			
-			if (Todolist.list.isLogged() === false) {
-				Member.loginModal();
-				exit;
-			}
 
 			// console.log(e.target.closest(".tl-item"));
 			var clickedItem = e.target.closest(".tl-item");
@@ -50,34 +52,38 @@ var Todolist = {
 					$("span.value", $(clickedItem)).html(result.comp_date);
 					$(clickedItem).toggleClass("complete");
 				} else {
-					iModule.modal.alert(iModule.getText("text/confirm"),result.message);
+					if (result.message === "NOT LOGGED") {
+						Member.loginModal();
+					}
 				}
 			});
 		},
 
 		formSubmitHandler: function() {
 
-			if (Todolist.list.isLogged() === false) {
-				Member.loginModal();
-				exit;
-			}
-
 			var $form = $("#ModuleTodolistForm");
 
 			var $input = $("input[name=item]");
 			if ($input.val().trim() !== "") {
-				$form.send(ENV.getProcessUrl("todolist", "add"));
-			} else {
-				return false;
+
+				$form.send(ENV.getProcessUrl("todolist", "add"), function(result) {
+					if (result.success == true) {
+						$form.attr("action",Todolist.getUrl(false)); // 이부분 다시공부
+						$form.attr("method","post");
+						$form.off("submit");
+						$form.submit();
+					} else {
+						if (result.message === "NOT LOGGED") {
+							Member.loginModal();
+						}
+					}
+				});
 			}
+
+			return false;
 		},
 
 		buttonClickHandler: function(e) {
-
-			if (Todolist.list.isLogged() === false) {
-				Member.loginModal();
-				exit;
-			}
 
 			var $form = $("#ModuleTodolistForm");
 			var buttonName = e.target.name;
@@ -91,6 +97,10 @@ var Todolist = {
 								$("span.value", item).html(result.comp_date);
 								$(item).addClass("complete");
 							});
+						} else {
+							if (result.message === "NOT LOGGED") {
+								Member.loginModal();
+							}
 						}
 					});
 					break;
@@ -101,6 +111,10 @@ var Todolist = {
 							$("li", $form).each(function(index, item) {
 								$(item).removeClass("complete");
 							});
+						} else {
+							if (result.message === "NOT LOGGED") {
+								Member.loginModal();
+							}
 						}
 					});
 					break;
@@ -109,6 +123,10 @@ var Todolist = {
 					$.send(ENV.getProcessUrl("todolist", "clearDone"), function(result) {
 						if (result.success == true) {
 							$("li.complete", $form).remove();
+						} else {
+							if (result.message === "NOT LOGGED") {
+								Member.loginModal();
+							}
 						}
 					});
 					break;
@@ -117,27 +135,14 @@ var Todolist = {
 					$.send(ENV.getProcessUrl("todolist", "clearAll"), function(result) {
 						if (result.success == true) {
 							$("li", $form).remove();
+						} else {
+							if (result.message === "NOT LOGGED") {
+								Member.loginModal();
+							}
 						}
 					});
 					break;
 			}
-		},
-
-		isLogged: function() {
-
-			var logged = null;
-
-			$.ajax({
-				type: "GET",
-				url: ENV.getApiUrl("member", "me"),
-				dataType:"json",
-				async: false,
-				success: function(result) {
-					logged = result.success; // success 가 true이면 로그인돼있는것, false면 로그인 돼있지 않은것.
-				}
-			});
-
-			return logged;
 		}
 	}
 };
