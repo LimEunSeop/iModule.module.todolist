@@ -1,0 +1,13 @@
+{
+	"context":{
+		"list":"todolist コンテクスト"
+	},
+	"admin":{
+		"configs":{
+			"form":{
+				"default_setting":"モジュール基本設定",
+				"templet":"テンプレート"
+			}
+		}
+	}
+}

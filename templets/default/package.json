@@ -1,6 +1,7 @@
 {
 	"title":{
-		"ko":"Todolist 기본 템플릿"
+		"ko":"Todolist 기본 템플릿",
+		"ja":"Todolist 基本テンプレート"
 	},
 	"version":"0.0.2",
 	"author":{
