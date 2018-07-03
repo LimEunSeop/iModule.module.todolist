@@ -479,7 +479,7 @@ class ModuleTodolist {
 		$mem_idx = $this->IM->getModule('member')->getMember()->idx; // 멤버 idx 값 불러오기
 		$tasks = $this->db()->select($this->table->todolist)->where('mem_idx', $mem_idx)->get();
 
-		$header = PHP_EOL.'<form id="ModuleTodolistForm">'.PHP_EOL;
+		$header = PHP_EOL.'<form id="ModuleTodolistListForm">'.PHP_EOL;
 		$footer = PHP_EOL.'</form>'.PHP_EOL.'<script>Todolist.list.init();</script>'.PHP_EOL;
 
 		return $this->getTemplet($configs)->getContext('list', get_defined_vars(), $header, $footer);

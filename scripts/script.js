@@ -24,7 +24,7 @@ var Todolist = {
 		init: function() {
 			$("input[name=item]").focus();
 
-			var $form = $("#ModuleTodolistForm");
+			var $form = $("#ModuleTodolistListForm");
 
 			/**
 			 * 핸들러 등록 부분
@@ -61,7 +61,7 @@ var Todolist = {
 
 		formSubmitHandler: function() {
 
-			var $form = $("#ModuleTodolistForm");
+			var $form = $("#ModuleTodolistListForm");
 
 			var $input = $("input[name=item]");
 			if ($input.val().trim() !== "") {
@@ -85,7 +85,7 @@ var Todolist = {
 
 		buttonClickHandler: function(e) {
 
-			var $form = $("#ModuleTodolistForm");
+			var $form = $("#ModuleTodolistListForm");
 			var buttonName = e.target.name;
 
 			switch(buttonName) {
