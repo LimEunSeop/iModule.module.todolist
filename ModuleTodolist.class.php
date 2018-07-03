@@ -7,8 +7,8 @@
  * @file /modules/todolist/ModuleTodolist.class.php
  * @author Eunseop Lim (dmstjq12@naver.com)
  * @license MIT License
- * @version 0.0.5
- * @modified 2018. 6. 22.
+ * @version 0.1.0
+ * @modified 2018. 7. 3.
  */
 class ModuleTodolist {
 	/**

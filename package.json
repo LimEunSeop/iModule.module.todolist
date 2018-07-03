@@ -5,7 +5,7 @@
 		"ko":"To do 리스트",
 		"ja":"To do リスト"
 	},
-	"version":"0.0.5",
+	"version":"0.1.0",
 	"description":{
 		"ko":"할일을 관리할 수 있습니다.",
 		"ja":"用事を管理する事ができます。"
@@ -20,7 +20,7 @@
 		"member":"3.0.0"
 	},
 	"language":"ko",
-	"admin":false,
+	"admin":true,
 	"context":true,
 	"global":false,
 	"article":false,
@@ -31,6 +31,31 @@
 		}
 	},
 	"databases":{
+		"todolist_admin_table":{
+			"columns":{
+				"id":{
+					"type":"int",
+					"length":11,
+					"comment":"관리패널id"
+				},
+				"taskname":{
+					"type":"varchar",
+					"length":100,
+					"comment":"할 일",
+					"is_null":false
+				},
+				"mem_cnt":{
+					"type":"int",
+					"length":11,
+					"comment":"할당된 회원수"
+				},
+				"mem_done_cnt":{
+					"type":"int",
+					"length":11,
+					"comment":"완료한 회원수"
+				}
+			}
+		},
 		"todolist":{
 			"columns":{
 				"idx":{
@@ -41,7 +66,8 @@
 				"mem_idx":{
 					"type":"int",
 					"length":11,
-					"comment":"멤버idx"
+					"comment":"멤버idx",
+					"is_null":false
 				},
 				"taskname":{
 					"type":"varchar",
@@ -64,11 +90,17 @@
 					"type":"int",
 					"length":11,
 					"comment":"완료일"
+				},
+				"admin_id":{
+					"type":"int",
+					"length":11,
+					"comment":"관리패널id"
 				}
 			},
 			"indexes":{
 				"idx":"primary_key",
-				"mem_idx":"index"
+				"mem_idx":"index",
+				"admin_id":"index"
 			},
 			"auto_increment":"idx"
 		}

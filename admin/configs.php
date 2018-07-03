@@ -7,7 +7,7 @@
  * @file /modules/todolist/admin/configs.php
  * @author Eunseop Lim (dmstjq12@naver.com)
  * @license GPLv3
- * @version 0.0.5
+ * @version 0.1.0
  * @modified 2018. 4. 29.
  */
 if (defined('__IM__') == false) exit;

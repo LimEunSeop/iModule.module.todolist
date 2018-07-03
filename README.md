@@ -34,7 +34,7 @@
 	"title":{
 		"ko":"To do 리스트"
 	},
-	"version":"0.0.5",
+	"version":"0.1.0",
 	"description":{
 		"ko":"할일을 관리할 수 있습니다."
 	},
@@ -280,7 +280,7 @@ https://github.com/LimEunSeop/iModule.module.todolist/blob/master/templets/defau
  * @file /modules/todolist/scripts/script.js
  * @author Eunseop Lim (dmstjq12@naver.com)
  * @license MIT License
- * @version 0.0.5
+ * @version 0.1.0
  * @modified 2018. 6. 22.
  */
 var Todolist = {
