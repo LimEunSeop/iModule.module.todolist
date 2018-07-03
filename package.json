@@ -33,27 +33,20 @@
 	"databases":{
 		"todolist_admin_table":{
 			"columns":{
-				"id":{
+				"idx":{
 					"type":"int",
 					"length":11,
-					"comment":"관리패널id"
+					"comment":"관리패널idx"
 				},
 				"taskname":{
 					"type":"varchar",
 					"length":100,
 					"comment":"할 일",
 					"is_null":false
-				},
-				"mem_cnt":{
-					"type":"int",
-					"length":11,
-					"comment":"할당된 회원수"
-				},
-				"mem_done_cnt":{
-					"type":"int",
-					"length":11,
-					"comment":"완료한 회원수"
 				}
+			},
+			"indexes":{
+				"idx":"primary_key"
 			}
 		},
 		"todolist":{
@@ -91,16 +84,15 @@
 					"length":11,
 					"comment":"완료일"
 				},
-				"admin_id":{
+				"admin_idx":{
 					"type":"int",
 					"length":11,
-					"comment":"관리패널id"
+					"comment":"관리패널idx"
 				}
 			},
 			"indexes":{
 				"idx":"primary_key",
-				"mem_idx":"index",
-				"admin_id":"index"
+				"mem_idx":"index"
 			},
 			"auto_increment":"idx"
 		}

@@ -56,6 +56,7 @@ class ModuleTodolist {
 		 */
 		$this->table = new stdClass();
 		$this->table->todolist = 'todolist';
+		$this->table->admin_todolist = 'todolist_admin_table';
 	}
 	
 	/**

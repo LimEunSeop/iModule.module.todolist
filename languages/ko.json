@@ -13,7 +13,14 @@
 			"title": "회원Todolist관리",
 			"addTodo": "할일 추가",
 			"editTodo": "할일 수정",
-			"removeTodo": "할일 삭제"
+			"removeTodo": "할일 삭제",
+			"columns": {
+				"idx": "idx",
+				"taskname": "할 일",
+				"mem_cnt": "할당된 회원수",
+				"mem_comp_cnt": "완료한 회원수",
+				"percentage": "비율"
+			}
 		}
 	}
 }

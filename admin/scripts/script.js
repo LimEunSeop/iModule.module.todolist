@@ -20,13 +20,13 @@ var Todolist = {
 		 * @param string id Todolist 관리 아이디 (없을 경우 추가)
 		 */
 		add: function(id) {
-			new Ext.Window();
+			new Ext.Window().show();
 		},
-		edit: function() {
-			new Ext.Window();
+		edit: function(id) {
+			new Ext.Window().show();
 		},
-		remove: function() {
-			new Ext.Window();
+		remove: function(id) {
+			new Ext.Window().show();
 		}
 	}
 };
