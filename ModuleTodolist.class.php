@@ -190,6 +190,10 @@ class ModuleTodolist {
 	 */
 	function getAdminPanel() {
 		/**
+		 * Member 모듈의 언어셋 불러오기
+		 */
+		$this->IM->loadLanguage('module', 'member', $this->IM->getLanguage());
+		/**
 		 * 설정패널 PHP에서 iModule 코어클래스와 모듈코어클래스에 접근하기 위한 변수 선언
 		 */
 		$IM = $this->IM;

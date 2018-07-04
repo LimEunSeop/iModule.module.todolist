@@ -88,6 +88,7 @@
 				"admin_idx":{
 					"type":"int",
 					"length":11,
+					"default":-1,
 					"comment":"관리패널idx"
 				}
 			},

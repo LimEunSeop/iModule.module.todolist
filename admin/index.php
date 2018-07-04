@@ -85,6 +85,7 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 					width: 120,
 					dataIndex: "mem_cnt",
 					sortable: true,
+					align: "right",
 					renderer: function(value, p) {
 						if (value == 0) {
 							p.style = "text-align:center;";
@@ -97,6 +98,7 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 					width: 120,
 					dataIndex: "mem_comp_cnt",
 					sortable: true,
+					align: "right",
 					renderer: function(value, p) {
 						if (value == 0) {
 							p.style = "text-align:center;";

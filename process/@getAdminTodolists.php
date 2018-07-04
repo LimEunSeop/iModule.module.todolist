@@ -22,7 +22,7 @@ $sort = Request('sort') ? Request('sort') : 'idx';
 $dir = Request('dir') ? Request('dir') : 'asc';
 
 // 할일 할당돼있는 전체 회원 수 구하기
-$listWithMemCnt = $this->db()->select($this->table->admin_todolist.' a','a.idx, a.taskname, count(b.mem_idx) as mem_cnt')->join($this->table->todolist.' b','a.idx=b.admin_idx AND b.mem_idx!=0','LEFT');
+$listWithMemCnt = $this->db()->select($this->table->admin_todolist.' a','a.idx, a.taskname, count(b.mem_idx) as mem_cnt')->join($this->table->todolist.' b','a.idx=b.admin_idx AND b.mem_idx is not NULL','LEFT');
 $listWithMemCnt->groupBy('a.idx, a.taskname')->orderBy($sort,$dir);
 $total = $listWithMemCnt->copy()->count(); // admin_todolist 테이블 레코드 갯수
 if ($limit > 0) $listWithMemCnt->limit($start,$limit);
