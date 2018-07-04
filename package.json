@@ -47,7 +47,8 @@
 			},
 			"indexes":{
 				"idx":"primary_key"
-			}
+			},
+			"auto_increment":"idx"
 		},
 		"todolist":{
 			"columns":{
