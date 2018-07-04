@@ -8,7 +8,7 @@
  * @author Eunseop Lim (dmstjq12@naver.com)
  * @license MIT License
  * @version 0.1.0
- * @modified 2018. 7. 3.
+ * @modified 2018. 7. 4.
  */
 if (defined('__IM__') == false) exit;
 ?>
@@ -57,7 +57,7 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 					sorters: [{property:"idx",direction:"ASC"}],
 					autoLoad: true,
 					pageSize: 50,
-					fields: ["id", "taskname", "mem_cnt", "mem_comp_cnt"],
+					fields: ["idx", "taskname", "mem_cnt", "mem_comp_cnt"],
 					listeners: {
 						load: function(store, records, success, e) {
 							if (success == false) {
@@ -73,7 +73,7 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 				columns: [{
 					text: Todolist.getText("admin/list/columns/idx"),
 					width: 80,
-					dataIndex: "id",
+					dataIndex: "idx",
 					sortable: true
 				}, {
 					text: Todolist.getText("admin/list/columns/taskname"),
@@ -84,7 +84,14 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 					text: Todolist.getText("admin/list/columns/mem_cnt"),
 					width: 120,
 					dataIndex: "mem_cnt",
-					sortable: true
+					sortable: true,
+					renderer: function(value, p) {
+						if (value == 0) {
+							p.style = "text-align:center;";
+							return "-";
+						}
+						return Ext.util.Format.number(value, "0,000");
+					}
 				}, {
 					text: Todolist.getText("admin/list/columns/mem_comp_cnt"),
 					width: 120,
@@ -97,41 +104,7 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 						}
 						return Ext.util.Format.number(value, "0,000");
 					}
-				}, {
-					text: Todolist.getText("admin/list/columns/percentage"),
-					width: 80,
-					sortable: true,
-					renderer: function(value, p) {
-						var mem_cnt = parseInt(this.getDataIndex("mem_cnt"));
-						var mem_comp_cnt = parseInt(this.getDataIndex("mem_comp_cnt"));
-						var res = mem_comp_cnt / mem_cnt;
-
-						if (res <= 0) {
-							p.style = "text-align:center;";
-							return "-";
-						}
-						return Ext.util.Format.percent(res);
-					}
-				}],
-				selModel: new Ext.selection.CheckboxModel(),
-				bbar: new Ext.PagingToolbar({
-					store: null,
-					displayInfo: false,
-					items: [
-						"->",
-						{xtype:"tbtext",text:"항목 더블클릭 : 상세보기"}
-					],
-					listeners: {
-						beforerender: function(tool) {
-							tool.bindStore(Ext.getCmp("ModuleAdminTodolist").getStore());
-						}
-					}
-				}),
-				listeners: {
-					itemdblclick: function(grid, record) {
-						Todolist.list.view(record.data.idx, record.data.taskname);
-					}
-				}
+				}]
 			})
 		]
 	})
