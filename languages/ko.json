@@ -19,7 +19,8 @@
 				"taskname": "할일",
 				"mem_cnt": "할당된 회원수",
 				"mem_comp_cnt": "완료한 회원수",
-				"percentage": "비율"
+				"percentage": "비율",
+				"complete": "완료여부"
 			},
 			"window": {
 				"modify": "할일 수정",
@@ -29,6 +30,9 @@
 				"default_setting": "기본 설정",
 				"taskname": "할일",
 				"member_selection": "멤버 선택"
+			},
+			"view": {
+				"title": " 멤버 리스트 보기"
 			}
 		}
 	},

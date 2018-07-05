@@ -119,7 +119,12 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 							tool.bindStore(Ext.getCmp("ModuleAdminTodolist").getStore());
 						}
 					}
-				})
+				}),
+				listeners: {
+					itemdblclick: function(grid, record) {
+						Todolist.list.view(record.data.idx, record.data.taskname);
+					}
+				}
 			})
 		]
 	})

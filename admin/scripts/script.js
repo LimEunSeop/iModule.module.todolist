@@ -122,7 +122,16 @@ var Todolist = {
 												return value > 0 ? moment(value * 1000).format("YYYY-MM-DD HH:mm") : "-";
 											}
 										}],
-										selModel: new Ext.selection.CheckboxModel()
+										selModel: new Ext.selection.CheckboxModel(),
+										bbar: new Ext.PagingToolbar({
+											store: null,
+											displayInfo: false,
+											listeners: {
+												beforerender: function(tool) {
+													tool.bindStore(Ext.getCmp("ModuleTodolistMemberSelectionList").getStore());
+												}
+											}
+										})
 									})
 								]
 							})
@@ -178,6 +187,100 @@ var Todolist = {
 		},
 		edit: function(idx) {
 			Todolist.list.add(idx);
+		},
+		view: function(idx, title) {
+			new Ext.Window({
+				id: "ModuleTodolistViewMembersWindow",
+				title: title + Todolist.getText("admin/list/view/title"),
+				modal: true,
+				width: 950,
+				height: 600,
+				border: false,
+				layout: "fit",
+				maximizable: true,
+				items: [
+					new Ext.grid.Panel({
+						id: "ModuleTodolistViewMembersGrid",
+						border: true,
+						tbar: [],
+						store: new Ext.data.JsonStore({
+							proxy: {
+								type: "ajax",
+								simpleSortMode: true,
+								url: ENV.getProcessUrl("todolist", "@getTodoMembers"),
+								extraParams: {
+									idx: idx
+								},
+								reader: {type:"json"}
+							},
+							remoteSort: true,
+							sorters: [{property:"idx",direction:"DESC"}],
+							autoLoad: true,
+							pageSize: 50,
+							fields: ["idx", "name", "nickname", "email", "reg_date", "complete"],
+							listeners: {
+								load: function(store, records, success, e) {
+									if (success == false) {
+										if (e.getError()) {
+											Ext.Msg.show({title:Admin.getText("alert/error"),msg:e.getError(),buttons:Ext.Msg.OK,icon:Ext.Msg.Error});
+										} else {
+											Ext.Msg.show({title:Admin.getText("alert/error"),msg:Admin.getText("error/load"),buttons:Ext.Msg.OK,icon:Ext.Msg.ERROR});
+										}
+									}
+								}
+							}
+						}),
+						columns: [{
+							text: "idx",
+							width: 80,
+							dataIndex: "idx",
+							sortable: true
+						}, {
+							text: Member.getText("admin/list/columns/name"),
+							width: 125,
+							dataIndex: "name",
+							sortable: true,
+							align: "center"
+						}, {
+							text: Member.getText("admin/list/columns/nickname"),
+							width: 125,
+							dataIndex: "nickname",
+							sortable: true,
+							align: "center"
+						}, {
+							text: Member.getText("admin/list/columns/email"),
+							width: 200,
+							dataIndex: "email",
+							align: "right"
+						}, {
+							text: Member.getText("admin/list/columns/reg_date"),
+							width: 130,
+							align: "center",
+							dataIndex: "reg_date",
+							sortable: true,
+							renderer: function(value) {
+								return value > 0 ? moment(value * 1000).format("YYYY-MM-DD HH:mm") : "-";
+							}
+						}, {
+							text: Todolist.getText("admin/list/columns/complete"),
+							width: 70,
+							dataIndex: "complete",
+							sortable: true,
+							align: "center"
+						}],
+						bbar: new Ext.PagingToolbar({
+							store: null,
+							displayInfo: false,
+							listeners: {
+								beforerender: function(tool) {
+									tool.bindStore(Ext.getCmp("ModuleTodolistViewMembersGrid").getStore());
+								}
+							}
+						})
+					})
+				]
+
+			}).show();
 		},
 		remove: function(idx) {
 			new Ext.Window().show();
