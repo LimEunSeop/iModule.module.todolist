@@ -42,8 +42,7 @@ var Todolist = {
 
 		itemClickHandler: function(e) {
 
-			// console.log(e.target.closest(".tl-item"));
-			var clickedItem = e.target.closest(".tl-item");
+			var clickedItem = e.target.closest(".item");
 			
 			var clickedIdx = $(clickedItem).data("index");
 			var isCompleted = $(clickedItem).hasClass("complete") ? "YES" : "NO";

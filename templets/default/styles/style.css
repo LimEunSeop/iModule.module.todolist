@@ -14,7 +14,7 @@ div[data-module=todolist] {
     margin-top:30px;
 }
 
-div[data-module=todolist] .tl-list {
+div[data-module=todolist] .list {
     margin: 15px;
     padding: 30px;
     list-style: none;
@@ -24,50 +24,50 @@ div[data-module=todolist] .tl-list {
     box-shadow: 1px 0 5px 0 rgba(100,100,100,0.5);
 }
 
-div[data-module=todolist] .tl-item {
+div[data-module=todolist] .item {
     border-bottom: 1px solid #eee;
     padding:15px 0;
 }
 
-div[data-module=todolist] .tl-item.complete .tl-text {
+div[data-module=todolist] .item.complete .text {
     text-decoration: line-through;
     opacity: 0.4;
 }
 
-div[data-module=todolist] .tl-item.complete .tl-regdate {
+div[data-module=todolist] .item.complete .regdate {
     text-decoration: line-through;
     opacity: 0.4;
 }
 
-div[data-module=todolist] .tl-item.complete .tl-compdate {
+div[data-module=todolist] .item.complete .compdate {
     visibility: visible;
 }
 
-div[data-module=todolist] .tl-item .tl-compdate {
+div[data-module=todolist] .item .compdate {
     visibility: hidden;
 }
 
-div[data-module=todolist] .tl-list .tl-text {
+div[data-module=todolist] .list .text {
     font-weight: 600;
     color: #333;
 }
 
-div[data-module=todolist] .tl-list .tl-regdate {
+div[data-module=todolist] .list .regdate {
     font-size: 0.5em;
     color: #888;
 }
 
-div[data-module=todolist] .tl-list .tl-compdate {
+div[data-module=todolist] .list .compdate {
     font-size: 0.5em;
     color: blue;
 }
 
-div[data-module=todolist] .tl-control input {
+div[data-module=todolist] .control input {
     margin: 10px;
     font-size:2em
 }
 
-div[data-module=todolist] .tl-control button {
+div[data-module=todolist] .control button {
 	margin: 10px;
 	font-size: 1em;
 	padding: 10px;
