@@ -35,7 +35,8 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 						text: Todolist.getText("admin/list/editTodo"),
 						iconCls: "fa fa-pencil",
 						handler: function() {
-							Todolist.list.edit();
+							var selectedIdx = Ext.getCmp("ModuleAdminTodolist").getSelectionModel().getSelection()[0].data.idx;
+							Todolist.list.edit(selectedIdx);
 						}
 					}),
 					new Ext.Button({
