@@ -19,6 +19,8 @@
 				"taskname": "할일",
 				"mem_cnt": "할당된 회원수",
 				"mem_comp_cnt": "완료한 회원수",
+				"reg_date": "작성일",
+				"comp_date": "완료일",
 				"percentage": "비율",
 				"complete": "완료여부"
 			},

@@ -43,6 +43,11 @@
 					"length":100,
 					"comment":"할 일",
 					"is_null":false
+				},
+				"reg_date":{
+					"type":"int",
+					"length":11,
+					"comment":"작성일"
 				}
 			},
 			"indexes":{

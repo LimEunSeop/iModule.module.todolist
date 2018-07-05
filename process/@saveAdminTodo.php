@@ -21,15 +21,17 @@ $mem_indices = json_decode(Request('mem_indices'));
 // 여기서 값 검증해서 $results->success = false; 후 리턴 해야할듯 싶은데, 아직까지는 별다른 특이점은 없다.
 
 if ($mode == 'add') {
+    $currentTime = time();
+
     // todolist_admin_table 삽입 - 리턴값인 새로운 admin idx 를 $idx에 넣어준다.
-    $idx = $this->db()->insert($this->table->admin_todolist, array('taskname'=>$taskname))->execute();
+    $idx = $this->db()->insert($this->table->admin_todolist, array('taskname'=>$taskname, 'reg_date'=>$currentTime))->execute();
 
     // todolist 삽입
     $this->db()->startTransaction();
     foreach ($mem_indices as $mem_idx) {
         $insert['mem_idx'] = $mem_idx;
         $insert['taskname'] = $taskname;
-        $insert['reg_date'] = time();
+        $insert['reg_date'] = $currentTime;
         $insert['admin_idx'] = $idx;
         $this->db()->insert($this->table->todolist, $insert)->execute();
     }

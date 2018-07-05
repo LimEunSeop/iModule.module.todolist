@@ -22,15 +22,15 @@ $sort = Request('sort') ? Request('sort') : 'idx';
 $dir = Request('dir') ? Request('dir') : 'asc';
 
 // 할일 할당돼있는 전체 회원 수 구하기
-$listWithMemCnt = $this->db()->select($this->table->admin_todolist.' a','a.idx, a.taskname, count(b.mem_idx) as mem_cnt')->join($this->table->todolist.' b','a.idx=b.admin_idx AND b.mem_idx is not NULL','LEFT');
-$listWithMemCnt->groupBy('a.idx, a.taskname')->orderBy($sort,$dir);
+$listWithMemCnt = $this->db()->select($this->table->admin_todolist.' a','a.idx, a.taskname, count(b.mem_idx) as mem_cnt, a.reg_date')->join($this->table->todolist.' b','a.idx=b.admin_idx AND b.mem_idx is not NULL','LEFT');
+$listWithMemCnt->groupBy('a.idx, a.taskname, a.reg_date')->orderBy($sort,$dir);
 $total = $listWithMemCnt->copy()->count(); // admin_todolist 테이블 레코드 갯수
 if ($limit > 0) $listWithMemCnt->limit($start,$limit);
 $listWithMemCnt = $listWithMemCnt->get();
 
 // 할일을 완성한 회원수 구하기
-$listWithMemCompCnt = $this->db()->select($this->table->admin_todolist.' a','a.idx, a.taskname, count(b.complete) as mem_comp_cnt')->join($this->table->todolist.' b','a.idx=b.admin_idx AND b.complete="YES"','LEFT');
-$listWithMemCompCnt->groupBy('a.idx, a.taskname')->orderBy($sort,$dir);
+$listWithMemCompCnt = $this->db()->select($this->table->admin_todolist.' a','a.idx, a.taskname, count(b.complete) as mem_comp_cnt, a.reg_date')->join($this->table->todolist.' b','a.idx=b.admin_idx AND b.complete="YES"','LEFT');
+$listWithMemCompCnt->groupBy('a.idx, a.taskname, a.reg_date')->orderBy($sort,$dir);
 if ($limit > 0) $listWithMemCompCnt->limit($start,$limit);
 $listWithMemCompCnt = $listWithMemCompCnt->get();
 

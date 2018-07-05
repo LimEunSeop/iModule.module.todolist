@@ -23,7 +23,7 @@ $dir = Request('dir') ? Request('dir') : 'asc';
 
 $idx = Request('idx');
 
-$lists = $this->db()->select($this->table->todolist.' t', 'm.idx, m.name, m.nickname, m.email, m.reg_date, t.complete')->join($this->IM->getModule('member')->getTable('member').' m', 't.mem_idx=m.idx')->where('t.admin_idx', $idx);
+$lists = $this->db()->select($this->table->todolist.' t', 'm.idx, m.name, m.nickname, m.email, m.reg_date, t.complete, t.comp_date')->join($this->IM->getModule('member')->getTable('member').' m', 't.mem_idx=m.idx')->where('t.admin_idx', $idx);
 $total = $lists->copy()->count(); // admin_todolist 테이블 레코드 갯수
 $lists->orderBy($sort, $dir);
 if ($limit > 0) $lists->limit($start, $limit);

@@ -173,7 +173,25 @@ var Todolist = {
 							Ext.getCmp("ModuleTodolistAddTodoWindow").close();
 						}
 					})
-				]
+				],
+				listeners: {
+					show: function() {
+						if (admin_idx !== undefined) {
+							Ext.getCmp("ModuleTodolistAddTodoForm").getForm().load({
+								url: ENV.getProcessUrl("todolist", "@getAdminTodo"),
+								params: {idx:admin_idx},
+								waitTitle: Admin.getText("action/wait"),
+								waitMsg: Admin.getText("action/loading"),
+								success: function(form, action) {
+									
+								},
+								failure: function(form, action) {
+
+								}
+							})
+						}
+					}
+				}
 			}).show();
 		},
 		edit: function(idx) {
@@ -258,6 +276,15 @@ var Todolist = {
 							dataIndex: "complete",
 							sortable: true,
 							align: "center"
+						}, {
+							text: Todolist.getText("admin/list/columns/comp_date"),
+							width: 130,
+							align: "center",
+							dataIndex: "comp_date",
+							sortable: true,
+							renderer: function(value) {
+								return value > 0 ? moment(value * 1000).format("YYYY-MM-DD HH:mm") : "-";
+							}
 						}],
 						bbar: new Ext.PagingToolbar({
 							store: null,

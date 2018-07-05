@@ -57,7 +57,7 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 					sorters: [{property:"idx",direction:"ASC"}],
 					autoLoad: true,
 					pageSize: 50,
-					fields: ["idx", "taskname", "mem_cnt", "mem_comp_cnt"],
+					fields: ["idx", "taskname", "mem_cnt", "mem_comp_cnt", "reg_date"],
 					listeners: {
 						load: function(store, records, success, e) {
 							if (success == false) {
@@ -105,6 +105,15 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 							return "-";
 						}
 						return Ext.util.Format.number(value, "0,000");
+					}
+				}, {
+					text: Todolist.getText("admin/list/columns/reg_date"),
+					width: 130,
+					align: "center",
+					dataIndex: "reg_date",
+					sortable: true,
+					renderer: function(value) {
+						return value > 0 ? moment(value * 1000).format("YYYY-MM-DD HH:mm") : "-";
 					}
 				}],
 				bbar: new Ext.PagingToolbar({
