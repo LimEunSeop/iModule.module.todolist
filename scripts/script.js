@@ -121,7 +121,7 @@ var Todolist = {
 				case "clearDone":
 					$.send(ENV.getProcessUrl("todolist", "clearDone"), function(result) {
 						if (result.success == true) {
-							$("li.complete", $form).remove();
+							$("li.complete", $form).not($("li.admin")).remove();
 						} else {
 							if (result.message === "NOT LOGGED") {
 								Member.loginModal();
@@ -133,7 +133,8 @@ var Todolist = {
 				case "clearAll":
 					$.send(ENV.getProcessUrl("todolist", "clearAll"), function(result) {
 						if (result.success == true) {
-							$("li", $form).remove();
+							// var $except = $("li.admin");
+							$("li", $form).not($("li.admin")).remove();
 						} else {
 							if (result.message === "NOT LOGGED") {
 								Member.loginModal();

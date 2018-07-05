@@ -14,6 +14,23 @@ div[data-module=todolist] {
     margin-top:30px;
 }
 
+div[data-module=todolist] .description {
+    display: block;
+    float: right;
+}
+
+div[data-module=todolist] .description .redBox {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-color: red;
+}
+
+div[data-module=todolist] .description .caution {
+    color: red;
+    font-weight: bold;
+}
+
 div[data-module=todolist] .list {
     margin: 15px;
     padding: 30px;
@@ -50,6 +67,11 @@ div[data-module=todolist] .item .compdate {
 div[data-module=todolist] .list .text {
     font-weight: 600;
     color: #333;
+}
+
+div[data-module=todolist] .list .admin .text {
+    font-weight: 600;
+    color: #F00;
 }
 
 div[data-module=todolist] .list .regdate {

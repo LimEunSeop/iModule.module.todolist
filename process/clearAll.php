@@ -22,7 +22,7 @@ if (!$logged) {
     return;
 }
 
-$success = $this->db()->delete($this->table->todolist)->execute();
+$success = $this->db()->delete($this->table->todolist)->where('admin_idx', '-1')->execute();
 
 $results->success = true;
 

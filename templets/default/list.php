@@ -13,9 +13,10 @@
 if (defined('__IM__') == false) exit;
 ?>
 
+<span class="description"><div class="redBox"></div> : admin이 추가한 일 <span class="caution">(삭제 불가)</span></span><br>
 <ul id="myTodoList" class="list">
     <?php foreach ($tasks as $data) { ?>
-    <li class="item <?php echo $data->complete === 'YES' ? 'complete' : '';?>" data-index="<?php echo $data->idx; ?>">
+    <li class="item <?php echo $data->complete === 'YES' ? 'complete ' : ''; echo $data->admin_idx != -1 ? 'admin' : '' ?>" data-index="<?php echo $data->idx; ?>">
         <span class="text"> <?php echo $data->taskname ?> </span>
         <span class="regdate"> <?php echo GetTime("Y-m-d H:i:s", $data->reg_date); ?> </span>
         <span class="compdate"> &nbsp;&nbsp;
