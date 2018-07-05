@@ -185,8 +185,13 @@ var Todolist = {
 								success: function(form, action) {
 									
 								},
-								failure: function(form, action) {
-
+								failure:function(form,action) {
+									if (action.result && action.result.message) {
+										Ext.Msg.show({title:Admin.getText("alert/error"),msg:action.result.message,buttons:Ext.Msg.OK,icon:Ext.Msg.ERROR});
+									} else {
+										Ext.Msg.show({title:Admin.getText("alert/error"),msg:Admin.getText("error/load"),buttons:Ext.Msg.OK,icon:Ext.Msg.ERROR});
+									}
+									Ext.getCmp("ModuleTodolistAddTodoWindow").close();
 								}
 							})
 						}
@@ -282,8 +287,8 @@ var Todolist = {
 							align: "center",
 							dataIndex: "comp_date",
 							sortable: true,
-							renderer: function(value) {
-								return value > 0 ? moment(value * 1000).format("YYYY-MM-DD HH:mm") : "-";
+							renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+								return (value > 0 && record.data.complete == "YES") ? moment(value * 1000).format("YYYY-MM-DD HH:mm") : "-";
 							}
 						}],
 						bbar: new Ext.PagingToolbar({
