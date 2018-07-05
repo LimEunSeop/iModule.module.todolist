@@ -106,7 +106,20 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 						}
 						return Ext.util.Format.number(value, "0,000");
 					}
-				}]
+				}],
+				bbar: new Ext.PagingToolbar({
+					store: null,
+					displayInfo: false,
+					items: [
+						"->",
+						{xtype:"tbtext",text:"항목 더블클릭 : 상세보기"}
+					],
+					listeners: {
+						beforerender: function(tool) {
+							tool.bindStore(Ext.getCmp("ModuleAdminTodolist").getStore());
+						}
+					}
+				})
 			})
 		]
 	})
