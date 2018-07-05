@@ -76,7 +76,7 @@ var Todolist = {
 											remoteSort: true,
 											sorters: [{property:"idx",direction:"DESC"}],
 											autoLoad: true,
-											pageSize: 20,
+											// pageSize: 5,
 											fields: ["idx", "name", "nickname", "email", "reg_date"],
 											listeners: {
 												load: function(store, records, success, e) {
@@ -122,16 +122,7 @@ var Todolist = {
 												return value > 0 ? moment(value * 1000).format("YYYY-MM-DD HH:mm") : "-";
 											}
 										}],
-										selModel: new Ext.selection.CheckboxModel(),
-										bbar: new Ext.PagingToolbar({
-											store: null,
-											displayInfo: false,
-											listeners: {
-												beforerender: function(tool) {
-													tool.bindStore(Ext.getCmp("ModuleTodolistMemberSelectionList").getStore());
-												}
-											}
-										})
+										selModel: new Ext.selection.CheckboxModel()
 									})
 								]
 							})
