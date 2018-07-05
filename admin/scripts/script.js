@@ -55,7 +55,7 @@ var Todolist = {
 								]
 							}),
 							new Ext.form.Hidden({
-								name: "mem_idx"
+								name: "mem_indices"
 							}),
 							new Ext.form.FieldSet({
 								collapsible: true,
@@ -139,7 +139,7 @@ var Todolist = {
 								selectedIdx.push(selectedMembers[i].data.idx);
 							}
 							
-							Ext.getCmp("ModuleTodolistAddTodoForm").getForm().findField("mem_idx").setValue(JSON.stringify(selectedIdx));
+							Ext.getCmp("ModuleTodolistAddTodoForm").getForm().findField("mem_indices").setValue(JSON.stringify(selectedIdx));
 
 							// admin_idx, mode, taskname, mem_idx 를 파라미터로 던진다.
 							Ext.getCmp("ModuleTodolistAddTodoForm").getForm().submit({
@@ -148,12 +148,29 @@ var Todolist = {
 								waitTitle: Admin.getText("action/wait"),
 								waitMsg: Admin.getText("action/saving"),
 								success: function(form, action) {
-
+									Ext.Msg.show({title:Admin.getText("alert/info"),msg:Admin.getText("action/saved"),buttons:Ext.Msg.OK,icon:Ext.Msg.INFO,fn:function(button) {
+										Ext.getCmp("ModuleTodolistAddTodoWindow").close();
+										Ext.getCmp("ModuleAdminTodolist").getStore().reload();
+									}});
 								},
 								failure: function(form, action) {
-
+									if (action.result) {
+										if (action.result.message) {
+											Ext.Msg.show({title:Admin.getText("alert/error"),msg:action.result.message,buttons:Ext.Msg.OK,icon:Ext.Msg.ERROR});
+										} else {
+											Ext.Msg.show({title:Admin.getText("alert/error"),msg:Admin.getText("error/save"),buttons:Ext.Msg.OK,icon:Ext.Msg.ERROR});
+										}
+									} else {
+										Ext.Msg.show({title:Admin.getText("alert/error"),msg:Admin.getText("error/form"),buttons:Ext.Msg.OK,icon:Ext.Msg.ERROR});
+									}
 								}
 							})
+						}
+					}),
+					new Ext.Button({
+						text: Todolist.getText("button/cancel"),
+						handler: function() {
+							Ext.getCmp("ModuleTodolistAddTodoWindow").close();
 						}
 					})
 				]
