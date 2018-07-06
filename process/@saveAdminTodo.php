@@ -48,7 +48,7 @@ if ($mode == 'add') {
     $add_mem_indices = array_values(array_diff($new_mem_indices, $old_mem_indices));
 
     $this->db()->startTransaction();
-    $this->db()->update($this->table->admin_todolist, array('taskname'=>$taskname))->where('idx', $admin_idx)->execute();
+    // 레코드 제가 추가 반영
     foreach ($remove_mem_indices as $remove_mem_idx) {
         $this->db()->delete($this->table->todolist)->where('mem_idx', $remove_mem_idx)->where('admin_idx', $admin_idx)->execute();
     }
@@ -59,6 +59,9 @@ if ($mode == 'add') {
         $insert['admin_idx'] = $admin_idx;
         $this->db()->insert($this->table->todolist, $insert)->execute();
     }
+    // 할일 이름 수정 반영
+    $this->db()->update($this->table->admin_todolist, array('taskname'=>$taskname))->where('idx', $admin_idx)->execute();
+    $this->db()->update($this->table->todolist, array('taskname'=>$taskname))->where('admin_idx', $admin_idx)->execute();
     $this->db()->commit();
 
     $results->success = true;
