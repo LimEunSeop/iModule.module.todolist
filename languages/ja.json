@@ -8,6 +8,38 @@
 				"default_setting":"モジュール基本設定",
 				"templet":"テンプレート"
 			}
+		},
+		"list": {
+			"title": "メンバーTodolist管理",
+			"addTodo": "用事追加",
+			"editTodo": "用事修正",
+			"removeTodo": "用事削除",
+			"columns": {
+				"idx": "idx",
+				"taskname": "用事",
+				"mem_cnt": "メンバーの数",
+				"mem_comp_cnt": "完了したメンバーの数",
+				"reg_date": "作成日",
+				"comp_date": "完了日",
+				"percentage": "比率",
+				"complete": "完了可否"
+			},
+			"window": {
+				"modify": "用事修正",
+				"add": "用事追加"
+			},
+			"form": {
+				"default_setting": "基本設定",
+				"taskname": "用事",
+				"member_selection": "メンバー選択"
+			},
+			"view": {
+				"title": " メンバーリスト確認"
+			}
 		}
+	},
+	"button": {
+		"confirm": "OK",
+		"cancel": "キャンセル"
 	}
 }
