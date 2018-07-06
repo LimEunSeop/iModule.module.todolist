@@ -46,7 +46,11 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 						text: Todolist.getText("admin/list/removeTodo"),
 						iconCls: "mi mi-trash",
 						handler: function() {
-							Todolist.list.remove();
+							var selectedRecord = Ext.getCmp("ModuleAdminTodolist").getSelectionModel().getSelection()[0];
+							if (selectedRecord !== undefined) {
+								var selectedIdx = selectedRecord.data.idx;
+								Todolist.list.remove(selectedIdx);
+							}
 						}
 					})
 				],

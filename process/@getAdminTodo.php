@@ -27,6 +27,8 @@ if ($data == null) {
         array_push($data->registeredMemberIndices, $member->mem_idx);
     }
     
+    $data->registeredMemberIndices = json_encode($data->registeredMemberIndices);
+    
 	$results->success = true;
 	$results->data = $data;
 }

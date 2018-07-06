@@ -42,6 +42,10 @@ var Todolist = {
 								name: "mode",
 								value: (admin_idx ? "modify" : "add")
 							}),
+							new Ext.form.Hidden({ // 수정버튼을 통해 들어왔을때 load메소드를 통해 이쪽으로 데이터가 바인딩 되도록
+								name: "registeredMemberIndices",
+								value: null
+							}),
 							new Ext.form.FieldSet({
 								collapsible: true,
 								collapsed: false,
@@ -183,7 +187,13 @@ var Todolist = {
 								waitTitle: Admin.getText("action/wait"),
 								waitMsg: Admin.getText("action/loading"),
 								success: function(form, action) {
-									
+									var indicesToBeChecked = JSON.parse(form.findField("registeredMemberIndices").getValue());
+									var grid = Ext.getCmp("ModuleTodolistMemberSelectionList");
+
+									for (var i = 0; i < indicesToBeChecked.length; i++) {
+										var indexOfSelectionModel = grid.store.find('idx', indicesToBeChecked[i]);
+										grid.getSelectionModel().select(indexOfSelectionModel, true);
+									}
 								},
 								failure:function(form,action) {
 									if (action.result && action.result.message) {
@@ -193,7 +203,7 @@ var Todolist = {
 									}
 									Ext.getCmp("ModuleTodolistAddTodoWindow").close();
 								}
-							})
+							});
 						}
 					}
 				}
@@ -306,7 +316,18 @@ var Todolist = {
 			}).show();
 		},
 		remove: function(idx) {
-			new Ext.Window().show();
+			Ext.Msg.show({title:Admin.getText("alert/info"),msg:"선택하신 일을 정말 삭제하시겠습니까?<br>이 일을 할당받은 멤버 정보가 모두 사라집니다.",buttons:Ext.Msg.OKCANCEL,icon:Ext.Msg.QUESTION,fn:function(button) {
+				if (button == "ok") {
+					Ext.Msg.wait(Admin.getText("action/working"),Admin.getText("action/wait"));
+					$.send(ENV.getProcessUrl("todolist", "@deleteAdminTodo"),{idx:idx},function(result) {
+						if (result.success == true) {
+							Ext.Msg.show({title:Admin.getText("alert/info"),msg:Admin.getText("action/worked"),buttons:Ext.Msg.OK,icon:Ext.Msg.INFO,fn:function() {
+								Ext.getCmp("ModuleAdminTodolist").getStore().reload();
+							}})
+						}
+					})
+				}
+			}})
 		}
 	}
 };
