@@ -35,8 +35,11 @@ Ext.onReady(function() { Ext.getCmp("iModuleAdminPanel").add(
 						text: Todolist.getText("admin/list/editTodo"),
 						iconCls: "fa fa-pencil",
 						handler: function() {
-							var selectedIdx = Ext.getCmp("ModuleAdminTodolist").getSelectionModel().getSelection()[0].data.idx;
-							Todolist.list.edit(selectedIdx);
+							var selectedRecord = Ext.getCmp("ModuleAdminTodolist").getSelectionModel().getSelection()[0];
+							if (selectedRecord !== undefined) { // 선택이 된 상태라면 !!
+								var selectedIdx = selectedRecord.data.idx;
+								Todolist.list.edit(selectedIdx);
+							}
 						}
 					}),
 					new Ext.Button({
